@@ -18,6 +18,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Fprintf(w, "Hello from:  "+title+"\n")
+	fmt.Fprintf(w, "fix issue 1 :  "+title+"\n")
 }
 
 func main() {
