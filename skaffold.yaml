@@ -1,17 +1,17 @@
 apiVersion: skaffold/v1beta2
 kind: Config
 build:
-  artifacts:
-  - image: daemin9527/test001
-    context: .
-    docker: {}
-  tagPolicy:
+  artifacts:        	                      # 	the images you're going to be building.  
+  - image: daemin9527/test001             	# 	name of the image to be built.
+    context: .                              # 	directory containing the artifact's sources
+    docker: {}                              # 	beta describes an artifact built from a Dockerfile.
+  tagPolicy:       	# 	beta determines how images are tagged. A few strategies are provided here, although you most likely won't need to care! If not specified, it defaults to gitCommit: {variant: Tags}.
     envTemplate:
       template: '{{.DOCKER_REGISTRY}}/{{.IMAGE_NAME}}:{{.VERSION}}'
   local: {}
-deploy:
+deploy:           	# 	describes how images are deployed.  helm  or kubectl 
   kubectl: {}
-profiles:
+profiles:           #   can override be used to build, test or deploy configuration.
 - name: dev
   build:
     tagPolicy:
@@ -26,3 +26,7 @@ profiles:
         setValueTemplates:
           image.repository: '{{.DOCKER_REGISTRY}}/{{.IMAGE_NAME}}'
           image.tag: '{{.DIGEST_HEX}}'
+          
+          
+          
+# https://skaffold.dev/docs/references/yaml/
